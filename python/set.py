@@ -1,3 +1,4 @@
+# python
 ```py
 from typing import List  
   
@@ -57,3 +58,62 @@ if __name__ == "__main__":
     print("Complement:", set_ops.complement(A, U))  
     print("Symmetric Difference:", set_ops.symmetric(A, B))
 ```
+# python function
+```py
+class SetOperations:
+    # 并集
+    @staticmethod
+    def union(A, B):
+        result = list(set(A) | set(B))  # 使用集合的并集操作，然后转换回列表
+        result.sort()  # 排序
+        return result
+
+    # 交集
+    @staticmethod
+    def intersection(A, B):
+        result = list(set(A) & set(B))  # 使用集合的交集操作，然后转换回列表
+        return result
+
+    # 差集 A-B
+    @staticmethod
+    def difference(A, B):
+        result = list(set(A) - set(B))  # 使用集合的差集操作，然后转换回列表
+        return result
+
+    # 补集
+    @staticmethod
+    def complement(A, U):
+        result = list(set(U) - set(A))  # 全集U中不在A中的元素
+        return result
+
+    # 对称差集
+    @staticmethod
+    def symmetric_difference(A, B):
+        set1 = SetOperations.difference(A, B)  # A-B
+        set2 = SetOperations.difference(B, A)  # B-A
+        result = SetOperations.union(set1, set2)  # (A-B)U(B-A)
+        result.sort()  # 排序
+        return result
+
+
+# 测试代码
+if __name__ == "__main__":
+    A = [1, 3, 4]
+    B = [1, 2, 5, 6]
+    U = [1, 2, 3, 4, 5, 6]
+
+    union = SetOperations.union(A, B)
+    print(f"集合A与集合B的并集：{union}")
+
+    intersection = SetOperations.intersection(A, B)
+    print(f"集合A与集合B的交集：{intersection}")
+
+    difference = SetOperations.difference(A, B)
+    print(f"集合A与集合B的差集：{difference}")
+
+    symmetric = SetOperations.symmetric_difference(A, B)
+    print(f"集合A与集合B的对称差集：{symmetric}")
+
+    complement = SetOperations.complement(A, U)
+    print(f"集合A在全集U中的补集：{complement}")
+  ```
