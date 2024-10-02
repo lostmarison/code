@@ -1,5 +1,4 @@
 # python
-```py
 from typing import List  
   
 class SetOperations:  
@@ -57,9 +56,8 @@ if __name__ == "__main__":
     print("Difference A-B:", set_ops.difference(A, B))  
     print("Complement:", set_ops.complement(A, U))  
     print("Symmetric Difference:", set_ops.symmetric(A, B))
-```
+
 # python function
-```py
 class SetOperations:
     # 并集
     @staticmethod
@@ -116,4 +114,4 @@ if __name__ == "__main__":
 
     complement = SetOperations.complement(A, U)
     print(f"集合A在全集U中的补集：{complement}")
-  ```
+
