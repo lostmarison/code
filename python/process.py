@@ -1,55 +1,38 @@
+from openpyxl import load_workbook, Workbook
+
+# 读取表格
+workbook = load_workbook('计科学生信息.xlsx')
+sheet1 = workbook.active  # 或者使用 workbook['SheetName'] 来指定工作表
+rows = sheet1.max_row  # 读取行数
+cols = sheet1.max_column  # 读取列数
+
+# 创建所需列表
+name = []  # 创建存储名字的空列表
+gender = []  # 存储性别的空列表
+student_id = []  # 存储学号的空列表
+dorm = []  # 存储寝室的空列表
+dorm_bed = []  # 存储床位的空列表
+
+for row in sheet1.iter_rows(values_only=True):
+    if row[5] == 2322107012:
+        name.append(row[3])
+        gender.append('男' if row[0] == 'C14' else '女')
+        student_id.append(row[4])
+        dorm.append(row[1])
+        dorm_bed.append(row[2])
+
+# 写入表格
+write_workbook = Workbook()  # 创建一个新的工作簿
+write_sheet = write_workbook.active  # 获取当前活动的工作表
+headers = ["姓名", "性别", "学号", "寝室", "床位"]  # 定义表头
+write_sheet.append(headers)  # 将表头写入第一行
+
+# 将数据写入工作表
+for i in range(len(name)):
+    write_sheet.append([name[i], gender[i], student_id[i], dorm[i], dorm_bed[i]])
+
 '''
-# 工作簿--workbook
-# 表单-sheet
-# 单元格-cell
-# 行:row
-# 列:col
-import xlrd  
-# 打开一个 Excel 文件  
-workbook = xlrd.open_workbook('文件路径.xls')  
-# 获取所有工作表的名称  
-sheet_names = workbook.sheet_names()  
-# 通过索引或名称获取工作表  
-sheet1 = workbook.sheet_by_index(0)  # 通过索引获取第一个工作表  
-# 读取单元格数据  
-cell_value = sheet1.cell_value(rowx=0, colx=0)  # 读取第一行第一列的数据
-# 读取行数
-rows = sheet1.nrows 
-# 读取列数
-cols = sheet1.ncols
-# 读取行元素(整行元素)
-sheet1.row_value(i)
-# 读取列元素
-sheet1.col_values(j)
+# 指定保存位置和文件名
+save_path = 'D:\\code\\python\\Excel_process\\student_information\\计科2班学生信息.xlsx'
+write_workbook.save(save_path)  # 保存工作簿
 '''
-import xlrd
-
-
-class Student:
-    def __init__(self, filename, sheet_index):
-        # 私有属性，用于存储工作簿和工作表
-        self.__workbook = xlrd.open_workbook(filename)  # 1.打开一个工作簿
-        self.__sheet = self.__workbook.sheet_by_index(sheet_index)  # 2.获取sheet表单
-
-    def find_last_number(self, *nums):
-        rows = self.__sheet.nrows  # 读取行数
-        for i in range(rows):
-            cell = self.__sheet.cell_value(i, 1)
-            for num in nums:
-                # 判断学号尾号是否在nums中
-                if cell[-1] == num:
-                    name = self.__sheet.cell_value(i, 0)
-                    print(name)
-
-    def find_student_information(self, student_name):
-        rows = self.__sheet.nrows
-        for i in range(rows):
-            name = self.__sheet.cell_value(i, 3)
-            if student_name == name:
-                dorm = int(self.__sheet.cell_value(i, 1))
-                student_id = int(self.__sheet.cell_value(i, 4))
-                print("寝室:%d 学号:%d" % (dorm, student_id))
-
-
-finder1 = Student('计科2班成员.xls', 0)
-finder1.find_last_number('1', '4', '7')
