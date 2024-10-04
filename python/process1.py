@@ -3,8 +3,6 @@ from openpyxl import load_workbook, Workbook
 # 读取表格
 workbook = load_workbook('计科学生信息.xlsx')
 sheet1 = workbook.active  # 或者使用 workbook['SheetName'] 来指定工作表
-rows = sheet1.max_row  # 读取行数
-cols = sheet1.max_column  # 读取列数
 
 # 创建所需列表
 name = []  # 创建存储名字的空列表
